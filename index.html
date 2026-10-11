@@ -1262,6 +1262,35 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .boardprice.lo{color:var(--cream)}
 .bnk{font-family:var(--f-text); font-weight:600; background:var(--gold)}
 .boardcap{font-size:14px}
+/* more items than fit: the tabs scroll sideways, fading at the edge */
+.boardtabs{overflow-x:auto; scrollbar-width:none; gap:22px; margin-right:-26px; padding-right:26px;
+  -webkit-mask-image:linear-gradient(90deg,#000 85%,transparent); mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.boardtabs::-webkit-scrollbar{display:none}
+.boardtab{flex:none; white-space:nowrap; font-size:19px}
+/* new launches arrive as push notifications, hanging off the board's foot */
+.boardframe{position:relative}
+.hero .menuboard{padding-bottom:46px}
+.pushes{position:relative; width:min(340px,calc(100% - 20px)); height:84px; margin:-40px -22px 0 auto; z-index:3; pointer-events:none}
+.notif{position:absolute; inset:auto 0 0 0; display:flex; gap:12px; align-items:center; padding:12px 14px; text-align:left; text-decoration:none;
+  background:rgba(255,253,248,.94); -webkit-backdrop-filter:blur(14px) saturate(1.4); backdrop-filter:blur(14px) saturate(1.4);
+  border:1px solid rgba(78,51,34,.12); border-radius:16px; color:var(--espresso); pointer-events:auto;
+  box-shadow:0 18px 40px -14px rgba(36,21,14,.45), 0 2px 6px rgba(36,21,14,.12);
+  transform-origin:50% 0; transition:transform .5s cubic-bezier(.2,1.3,.4,1), opacity .4s}
+.notif.enter{transform:translateY(28px) scale(.96); opacity:0}
+.notif.back{transform:translateY(-12px) scale(.93); opacity:.55; pointer-events:none}
+.notif.gone{transform:translateY(-20px) scale(.86); opacity:0}
+.notif:hover{box-shadow:0 22px 46px -14px rgba(36,21,14,.5), 0 2px 6px rgba(36,21,14,.12)}
+.ni{flex:none; width:38px; height:38px; border-radius:10px; display:grid; place-items:center; background:var(--espresso); color:var(--gold);
+  font-family:var(--f-display); font-size:17px; font-weight:500}
+.nb{display:block; flex:1; min-width:0; line-height:1.3}
+.nh{display:flex; width:100%; justify-content:space-between; gap:8px; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.nh time{text-transform:none; letter-spacing:0}
+.nt{display:block; margin-top:2px; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.nt b{font-weight:600}
+.ns{display:block; font-size:13.5px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ns span{color:var(--tomato); font-weight:600}
+@media (max-width:860px){ .pushes{margin-right:10px} }
+@media (prefers-reduced-motion:reduce){ .notif{transition:none} }
 
 /* price spread */
 .bigprice{font-family:var(--f-display); font-weight:500; letter-spacing:-.03em}
@@ -1756,8 +1785,8 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
           <div class="menuboard" id="menu-board">
             <div class="boardtabs" id="board-tabs" role="group" aria-label="Item"></div>
             <div id="board-rows"></div>
-            <a class="boardnews" id="board-news" href="#whats-launching" hidden><span class="bnk">Just in</span><span class="bnt" id="board-news-text"></span><span class="bna">&rarr;</span></a>
           </div>
+          <div class="pushes" id="board-news" aria-label="New on menus near you" hidden></div>
           <p class="boardcap">Real menus. Tap any cafe to see where it stands.</p>
         </div>
       </div>
@@ -2866,18 +2895,31 @@ function landingMotion(d){
   });
 
 
-  /* "Just in" at the foot of the board: a real launch from the data, turning
-     with the board; a tap opens the list of new items in the tool */
+  /* New launches arrive as push notifications at the board's foot: a real
+     launch from the data slides in and the last one drops behind it. A tap
+     opens the list of new items in the tool. */
   const L = (d.launches_list || []).filter(l => l.price && l.shop && l.item_name).slice(0, 24);
-  const news = byId("board-news"), newsText = byId("board-news-text");
+  const news = byId("board-news");
   if(L.length){
+    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const when = m => { const [y, mo] = (m || "").split("-").map(Number); return mo ? `${MONTHS[mo - 1]} ${y}` : "New"; };
     let n = 0;
-    const show = () => { const l = L[n++ % L.length];
-      newsText.innerHTML = `<b>${esc(l.item_name)}</b> at ${esc(l.shop)} &middot; ${money(l.price)}`; };
+    const show = () => {
+      const l = L[n++ % L.length];
+      const el = document.createElement("a");
+      el.className = "notif enter"; el.href = "#whats-launching";
+      el.innerHTML = `<span class="ni" aria-hidden="true">${esc(l.shop.trim()[0] || "")}</span>` +
+        `<span class="nb"><span class="nh"><span>New on the menu</span><time>${esc(when(l.launch_month))}</time></span>` +
+        `<span class="nt"><b>${esc(l.item_name)}</b></span><span class="ns">${esc(l.shop)} &middot; <span>${money(l.price)}</span></span></span>`;
+      [...news.children].forEach(c => { if(c.classList.contains("back")) c.classList.add("gone"); else c.classList.add("back"); });
+      news.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("enter")));
+      setTimeout(() => news.querySelectorAll(".gone").forEach(c => c.remove()), 600);
+    };
     show(); news.hidden = false;
-    if(!still) setInterval(() => { if(!document.hidden && onLanding()){ news.classList.add("swap");
-      setTimeout(() => { show(); news.classList.remove("swap"); }, 250); } }, 4500);
+    if(!still) setInterval(() => { if(!document.hidden && onLanding() && !news.matches(":hover")) show(); }, 5000);
     news.addEventListener("click", e => {
+      if(!e.target.closest(".notif")) return;
       e.preventDefault();
       track("landing_cta_clicked", {place: "board_news"});
       activateTab("whats-launching", {push: false, track: false});
@@ -2920,7 +2962,7 @@ function buildLandingPage(d){
   // the board shows a name without its outlet bracket. The button's label keeps it.
   const short = r => r.shop_name.replace(/\s*\([^)]*\)\s*$/, "");
   const boards = {};
-  OPEN_ITEMS.filter(k => FINDER_ITEMS.indexOf(k) !== -1).forEach(k => {
+  BOARD_ITEMS.filter(k => FINDER_ITEMS.indexOf(k) !== -1).forEach(k => {
     const named = new Set();
     const priced = d.named_prices[k].slice().sort((a, b) => a.price - b.price || a.shop_name.localeCompare(b.shop_name))
       .filter(r => SHOPS.has(r.shop_id) && !named.has(short(r)) && named.add(short(r)));
@@ -3003,7 +3045,7 @@ function buildLandingPage(d){
       const el = e.target.closest(".boardrow");
       const r = el && boards[shown].on[Number(el.dataset.i)], shop = r && SHOPS.get(r.shop_id);
       if(!shop) return;
-      chooseShop(d, shop, "board", shown);
+      chooseShop(d, shop, "board", isOpen(shown) ? shown : undefined);
       history.pushState({fromLanding: true, tab: activeTab}, "", "#" + activeTab);
       track("preview_opened", {mode: "shop", via: "pick"});
       showPreview(true);
@@ -3338,6 +3380,8 @@ const itemWords = k => itemName(k).toLowerCase();
    part of the paid product: they show a count and a lock row. */
 let FINDER_ITEMS = Object.keys(ITEM_NAMES);   // narrowed to the items the data has
 const OPEN_ITEMS = ["flat_white", "croissant_plain"];
+// the hero board shows more than the open items; tapping a cafe still opens on an open one
+const BOARD_ITEMS = ["flat_white", "latte", "matcha_latte", "cappuccino", "croissant_plain", "kouign_amann"];
 const isOpen = k => OPEN_ITEMS.indexOf(k) !== -1;
 let finderItem = OPEN_ITEMS[0];
 /* who is asking: {shopId} once they pick their shop from the data, or
