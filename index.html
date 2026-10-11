@@ -1643,6 +1643,24 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .unilink{display:flex; align-items:center; gap:10px; color:inherit; text-decoration:none; border-radius:6px}
 .unilink:focus-visible{outline:2px solid var(--gold); outline-offset:6px}
 @media (max-width:640px){ .unilink{flex-direction:column; text-align:center} }
+
+/* university lockups in their own colours, on a light panel as they are meant to be seen */
+.teamrow{margin-top:32px; padding:22px 28px; border:0; border-radius:14px; background:var(--cream); box-shadow:0 1px 0 rgba(255,255,255,.06) inset; max-width:calc(var(--maxw) - 2 * var(--pad)); box-sizing:border-box}
+.teamlabel{color:var(--muted)}
+.u-mark,.u-lock,.u-crest{filter:none !important; opacity:1 !important}
+.u-mark{height:40px}
+.u-tum{height:22px}
+.u-lock{height:44px}
+.unis li,.unis li:hover{color:var(--espresso)}
+.unilink{transition:transform .2s}
+.unilink:hover{transform:translateY(-1px)}
+.unilink:focus-visible{outline-color:var(--tomato)}
+.unilink span{font-weight:500}
+.unis li:nth-child(1) .unilink span{color:#003D7C}
+.unis li:nth-child(2) .unilink span{color:#3070B3}
+.unis li:nth-child(3) .unilink span{color:#1F1A17}
+.teamrow + .footrow{padding-top:28px}
+@media (max-width:640px){ .teamrow{margin:24px var(--pad) 0; padding:20px} }
 </style>
 </head>
 <body>
@@ -1930,10 +1948,10 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
     <div class="wrap teamrow">
       <span class="teamlabel">Built by a team from</span>
       <ul class="unis">
-        <li><a class="unilink" href="https://nus.edu.sg/" target="_blank" rel="noopener noreferrer" aria-label="National University of Singapore (opens in a new tab)"><img src="img/unis/nus.svg" alt="" class="u-mark u-crest"><span>National University<br>of Singapore</span></a></li>
+        <li><a class="unilink" href="https://nus.edu.sg/" target="_blank" rel="noopener noreferrer" aria-label="National University of Singapore (opens in a new tab)"><img src="img/unis/nus.svg" alt="" class="u-mark"><span>National University<br>of Singapore</span></a></li>
         <li><a class="unilink" href="https://www.tum.de/en/" target="_blank" rel="noopener noreferrer" aria-label="Technical University of Munich (opens in a new tab)"><img src="img/unis/tum.svg" alt="" class="u-mark u-tum"><span>Technical University<br>of Munich</span></a></li>
         <li><a class="unilink" href="https://www.ui.ac.id/" target="_blank" rel="noopener noreferrer" aria-label="Universitas Indonesia (opens in a new tab)"><img src="img/unis/ui.svg" alt="" class="u-mark"><span>Universitas<br>Indonesia</span></a></li>
-        <li><a class="unilink" href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer" aria-label="University of Toronto (opens in a new tab)"><img src="img/unis/uoft.svg" alt="" class="u-lock u-crest"></a></li>
+        <li><a class="unilink" href="https://www.utoronto.ca/" target="_blank" rel="noopener noreferrer" aria-label="University of Toronto (opens in a new tab)"><img src="img/unis/uoft.svg" alt="" class="u-lock"></a></li>
       </ul>
     </div>
     <div class="wrap footrow">
