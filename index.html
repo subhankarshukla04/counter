@@ -1969,7 +1969,7 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
             <li>Look up your shop</li>
             <li>Compare your flat white and croissant</li>
             <li>The price map</li>
-            <li>The Monday email</li>
+            <li>The Weekly Bake, our Monday email</li>
           </ul>
           <a class="btn" href="#l-hero">Find my shop</a>
         </div>
@@ -2043,14 +2043,14 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
       </div>
     <div class="wrap closegrid">
       <div class="closecopy">
-        <span class="section-kicker" style="color:var(--butter)">Every Monday</span>
+        <span class="section-kicker" style="color:var(--butter)">The Weekly Bake &middot; every Monday</span>
         <h2 class="bigclose">Your Monday,<br><span>on the house.</span></h2>
         <p class="closesub">The prices, new items and deals near you, in one short email before you open.</p>
         <button type="button" class="closefind" id="close-find">Or look up your shop now &rarr;</button>
       </div>
       <div class="receipt">
-        <p class="rc-head">Counter</p>
-        <p class="rc-sub">Monday edition &middot; Singapore</p>
+        <p class="rc-head">The Weekly Bake</p>
+        <p class="rc-sub">Monday edition &middot; by Counter</p>
         <p class="rc-rule" aria-hidden="true"></p>
         <p class="rc-line"><span>1 &times; Prices near you</span><span>0.00</span></p>
         <p class="rc-line"><span>1 &times; New items launched</span><span>0.00</span></p>
@@ -2118,7 +2118,7 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
           <p>Join the waitlist to unlock every item, every cafe and your own dashboard. $20 a month.</p>
           <button type="button" class="btn btn-main" id="locked-join">Join the waitlist</button>
           <p class="fineprint">No payment now. We will email you when it starts.</p>
-          <button type="button" class="linkbtn" id="locked-free">Not ready? Get the free weekly email.</button>
+          <button type="button" class="linkbtn" id="locked-free">Not ready? Get The Weekly Bake, our free Monday email.</button>
         </div>
       </div>
       <button type="button" class="typebox" id="type-box">Type your shop to see how you compare.</button>
@@ -2218,7 +2218,7 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
         <p id="wall-line"></p>
         <button type="button" class="btn btn-main" id="wall-join">Join the waitlist</button>
         <p class="fineprint">No payment now. We will email you when it starts.</p>
-        <button type="button" class="linkbtn" id="wall-free">Not ready? Get the free weekly email.</button>
+        <button type="button" class="linkbtn" id="wall-free">Not ready? Get The Weekly Bake, our free Monday email.</button>
       </div>
     </div>
   </section>
@@ -2359,8 +2359,8 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
   <!-- 9. FREE WEEKLY EMAIL -->
   <section class="sec freemail" id="free-email">
     <div class="wrap">
-      <h2>Get the free weekly email</h2>
-      <p>Every Monday we email you three things: what cafes and bakeries charge, what is new on their menus, and who has a discount.</p>
+      <h2>Get The Weekly Bake</h2>
+      <p>Our free email from Counter. Every Monday we send you three things: what cafes and bakeries charge, what is new on their menus, and who has a discount.</p>
       <form class="signup" id="news-form" novalidate>
         <label class="vh" for="news-email">Email address</label>
         <input type="email" id="news-email" placeholder="you@yourcafe.sg" required>
@@ -2994,7 +2994,7 @@ function landingMotion(d){
 /* ---------- try it: the live product ----------
    One URL to change when the domain arrives. The iframe loads lazily as the section nears,
    and the shield keeps a scroll from turning into a click inside the app. */
-const COUNTER_APP = "https://counter-cafe.vercel.app";
+const COUNTER_APP = "https://counter-cafe-v2.vercel.app";
 
 function buildTryDemo(){
   const screen = byId("try-screen"), frame = byId("try-frame"), close = byId("try-close");
@@ -4966,7 +4966,7 @@ function buildFooter(d){
 
 /* ---------- forms ---------- */
 const SIGNUP_DONE = {
-  newsletter_hero:    "You are on the list. Your first email comes this week.",
+  newsletter_hero:    "You are on the list for The Weekly Bake. Your first email comes this week.",
   waitlist:           "You are on the waitlist. We will email you before we start."
 };
 const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
