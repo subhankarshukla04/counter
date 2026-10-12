@@ -1119,20 +1119,15 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .laptop .base::before{content:""; position:absolute; left:50%; top:0; width:16%; height:7px; transform:translateX(-50%); background:#A69D92; border-radius:0 0 10px 10px}
 .tryshield{position:absolute; inset:0; width:100%; height:100%; background:rgba(36,21,14,.1); cursor:pointer; transition:background .2s ease}
 .tryshield:hover{background:rgba(36,21,14,.2)}
-.tryshield .btn{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:center; pointer-events:none; min-height:52px; padding:0 30px; font-size:17px; box-shadow:0 10px 30px -8px rgba(36,21,14,.5)}
+.tryshield .btn{white-space:nowrap; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:center; pointer-events:none; min-height:52px; padding:0 30px; font-size:17px; box-shadow:0 10px 30px -8px rgba(36,21,14,.5)}
 .appscreen.live .tryshield{display:none}
 .trynote{margin-top:22px; font-size:14.5px; color:var(--muted)}
 .trynote a{color:inherit}
-.tryclose{position:absolute; bottom:max(16px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); z-index:2; min-height:44px; padding:0 20px; border-radius:999px; background:var(--espresso); color:var(--cream); font-size:15px; font-weight:500; box-shadow:0 8px 24px -8px rgba(36,21,14,.5)}
-/* full screen: the same element, so the app keeps its place */
-.appscreen.full{position:fixed; inset:0; z-index:200; aspect-ratio:auto; border-radius:0}
-.appscreen.full iframe{width:100% !important; height:100% !important; transform:none !important}
-html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
+.appscreen video{display:block; width:100%; height:100%; object-fit:cover; object-position:top left}
+.trydemo .laptop{width:min(1000px,100%)}
 /* hero: the laptop is the stage */
-html.tryopen .landbar{visibility:hidden}
 .hero .heroside{display:block; padding:0; margin:0; min-width:0}
 .hero .heroside .laptop{width:100%; margin:0}
-.hero .tryshield .btn{white-space:nowrap}
 .hero .laptop .base{margin:0 -2.5%}
 @media (min-width:861px){ .hero .herogrid{grid-template-columns:minmax(0,9fr) minmax(0,11fr); gap:40px; align-items:center} }
 @media (max-width:860px){ .hero .heroside{margin-bottom:0} .hero .herogrid{gap:32px} .hero .herostats{display:none} }
@@ -1142,15 +1137,9 @@ html.tryopen .landbar{visibility:hidden}
 .wordmark img{display:block; flex:none; width:28px; height:28px}
 @media (max-width:640px){ .wordmark img{width:24px; height:24px} .wordmark{gap:8px} }
 /* the secondary hero action: the product on video */
-.demobtn{text-decoration:none; display:inline-flex; align-items:center; gap:10px; min-height:48px; margin-top:16px; padding:0 20px 0 16px; border:1.5px solid var(--espresso); border-radius:var(--r); font-weight:600; font-size:16px; color:var(--espresso)}
-.demobtn:hover{background:var(--espresso); color:var(--cream)}
-.demobtn svg{width:16px; height:16px}
-.vmodal{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:24px; background:rgba(26,19,16,.82)}
-.vbox{position:relative; width:min(380px,100%); max-height:100%; aspect-ratio:390/844; border-radius:28px; overflow:hidden; background:#000; box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.vbox video{display:block; width:100%; height:100%; object-fit:contain}
-.vclose{position:absolute; top:12px; right:12px; z-index:2; min-height:44px; padding:0 16px; border-radius:999px; background:rgba(26,19,16,.78); color:var(--cream); font-weight:600; font-size:15px}
-html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
-@media (max-width:640px){ .vmodal{padding:0} .vbox{width:100%; height:100%; max-height:none; aspect-ratio:auto; border-radius:0} }
+.demobtn{margin-left:6px; color:var(--espresso); font-weight:500; text-underline-offset:3px}
+.demobtn:hover{color:var(--tomato)}
+.hero .rot::after{display:none}
 </style>
 </head>
 <body>
@@ -1170,24 +1159,21 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
     <div class="wrap herogrid">
       <div class="herotext">
         <h1>Never guess a <em>price</em> again.</h1>
-        <p class="sub">Counter puts your menu next to the cafes around you: what they charge for <span id="rot-art">a</span> <span class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></span>, what they just launched and who is running a deal.</p>
+        <p class="sub">See what the cafes around you charge for <span id="rot-art">a</span> <span class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></span>, next to your own price.</p>
         <div class="combo">
           <label class="vh" for="shop-input">Your shop or area</label>
           <input type="text" id="shop-input" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="shop-list" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Your shop or area">
           <button type="button" class="lookbtn" id="hero-look">Look up</button>
           <ul class="combolist" id="shop-list" role="listbox" aria-label="Shops and areas" hidden></ul>
         </div>
-        <p class="free">Free. No sign-up.</p>
-        <a class="demobtn" id="demo-open" href="#l-how"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"></path></svg>See Counter in action</a>
+        <p class="free">Free. No sign-up. <a class="demobtn" id="demo-open" href="#l-try">Or try a sample cafe</a></p>
         <p class="herostats" id="hero-stats"></p>
       </div>
       <div class="heroside">
-        <div class="laptop" id="try-laptop">
+        <div class="laptop">
           <div class="lid">
-            <div class="appscreen" id="try-screen">
-              <iframe id="try-frame" title="Counter, the live product" loading="lazy" tabindex="-1"></iframe>
-              <button type="button" class="tryshield" id="try-start"><span class="btn btn-main">Try Counter</span></button>
-              <button type="button" class="tryclose" id="try-close" hidden>Close demo</button>
+            <div class="appscreen">
+              <video id="hero-video" src="media/counter-laptop.mp4" poster="media/counter-laptop-poster.jpg" autoplay muted loop playsinline preload="auto" aria-label="Counter on a laptop: finding a cafe, its prices next to nearby cafes, trying a new price and the offers nearby"></video>
             </div>
           </div>
           <div class="base" aria-hidden="true"></div>
@@ -1263,6 +1249,25 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
         <p class="phonecap">Counter on a phone</p>
       </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 4b. try it: the live product, used right inside the laptop -->
+  <section class="lsec trydemo" id="l-try">
+    <div class="wrap">
+      <span class="section-kicker">Try it</span>
+      <h2>Your turn.</h2>
+      <p class="sublead">This is Caffe Pralet in Tiong Bahru, next to four cafes near it. Click around: open an item, try a new price, see the offers nearby.</p>
+      <div class="laptop">
+        <div class="lid">
+          <div class="appscreen" id="try-screen">
+            <iframe id="try-frame" title="Counter, the live product" loading="lazy" tabindex="-1"></iframe>
+            <button type="button" class="tryshield" id="try-start"><span class="btn btn-main">Try it here</span></button>
+          </div>
+        </div>
+        <div class="base" aria-hidden="true"></div>
+      </div>
+      <p class="trynote"><a id="try-tab" href="#" target="_blank" rel="noopener">Open Counter in its own tab</a> to look up your own cafe.</p>
     </div>
   </section>
 
@@ -1735,6 +1740,8 @@ function landingMotion(d){
   // the price line's clock turns this word too, so both always name one item.
 
 
+  const hv = byId("hero-video");
+  if(still){ hv.removeAttribute("autoplay"); hv.pause(); hv.controls = true; }
   const vid = byId("walk-video");
   if(still || !("IntersectionObserver" in window)){ vid.controls = true; return; }
   new IntersectionObserver(f => { if(f[0].isIntersecting) vid.play().catch(() => { vid.controls = true; }); else vid.pause(); }, {threshold: 0.3}).observe(vid);
@@ -1756,64 +1763,41 @@ function landingMotion(d){
     .forEach((el, i) => { el.classList.add("rv"); el.style.transitionDelay = (i % 4) * 90 + "ms"; io.observe(el); });
 }
 /* ---------- the live product ----------
-   One URL to change when the domain arrives. The hero shows the sample cafe's My prices;
-   the shield keeps a scroll from turning into a click inside the app. Everything that
-   opens Counter goes through openCounter, which fills the whole screen. */
+   One URL to change when the domain arrives. "Try it" shows the sample cafe's My prices,
+   used right inside the laptop; the shield keeps a scroll from turning into a click in
+   the app. Everything that opens Counter goes through openCounter: on a wide screen it
+   loads into that laptop, on a phone (too small for the laptop) it opens the app itself. */
 const COUNTER_APP = "https://counter-cafe-v2.vercel.app";
 const COUNTER_PREVIEW = "?shop=caffe_pralet&rivals=merci_marcel_tiong_bahru,tiong_bahru_bakery,drips_bakery_cafe,tianns&src=landing";
 let openCounter = () => {};
 
 function buildTryDemo(){
-  const screen = byId("try-screen"), frame = byId("try-frame"), close = byId("try-close");
+  const screen = byId("try-screen"), frame = byId("try-frame");
   frame.src = COUNTER_APP + COUNTER_PREVIEW;
-  let custom = false;
+  byId("try-tab").href = COUNTER_APP + "?src=landing";
 
-  const fit = () => {
-    if(screen.classList.contains("full")) return;
-    frame.style.transform = "scale(" + screen.clientWidth / 1280 + ")";
-  };
+  const fit = () => { frame.style.transform = "scale(" + screen.clientWidth / 1280 + ")"; };
   new ResizeObserver(fit).observe(screen);
 
-  const setFull = on => {
-    screen.classList.toggle("full", on);
-    document.documentElement.classList.toggle("tryopen", on);
-    close.hidden = !on;
-    fit();
-    if(!on && custom){
-      // a lookup's app goes away with the close; the hero shows the sample again
-      custom = false;
-      frame.src = COUNTER_APP + COUNTER_PREVIEW;
-      screen.classList.remove("live");
-      frame.setAttribute("tabindex", "-1");
-    }
-  };
-  const start = (place, full) => {
+  const start = place => {
+    if(!screen.classList.contains("live")) track("demo_opened", {place: place});
     screen.classList.add("live");
     frame.removeAttribute("tabindex");
-    if(full) setFull(true);
-    frame.focus();
-    track("demo_opened", {place: place, full: !!full});
   };
-  // query: "" for the first screen, "shop=<id>" or "at=a:<area>" to land on that
+  const wide = () => matchMedia("(min-width:861px)").matches;
+  // query: "" for the sample cafe, "setup=place", "shop=<id>" or "at=a:<area>" to land on that
   openCounter = (query, place) => {
-    custom = true;
-    frame.src = COUNTER_APP + "?" + (query ? query + "&" : "") + "src=landing";
-    start(place, true);
+    const url = COUNTER_APP + "?" + (query ? query + "&" : "") + "src=landing";
+    if(!wide()){ track("demo_opened", {place: place, phone: true}); location.href = url; return; }
+    if(query) frame.src = url;
+    start(place);
+    screen.closest(".lsec").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start"});
   };
 
-  byId("try-start").addEventListener("click", () => start("hero", true));
-  // "See Counter in action" scrolls to the phone and plays the walkthrough from the start
-  byId("demo-open").addEventListener("click", e => {
-    e.preventDefault();
-    const v = byId("walk-video");
-    v.closest(".phonewrap").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center"});
-    v.currentTime = 0;
-    v.play().catch(() => { v.controls = true; });
-    track("demo_video_opened", {place: "hero"});
-  });
-
-  close.addEventListener("click", () => setFull(false));
-  document.addEventListener("keydown", e => { if(e.key === "Escape" && screen.classList.contains("full")) setFull(false); });
+  // the sample on a phone is the app itself, at the same cafe
+  const sample = place => { if(wide()) return false; track("demo_opened", {place: place, phone: true}); location.href = COUNTER_APP + COUNTER_PREVIEW; return true; };
+  byId("try-start").addEventListener("click", () => { if(sample("try_section")) return; start("try_section"); frame.focus(); });
+  byId("demo-open").addEventListener("click", e => { e.preventDefault(); if(!sample("hero_sample")) openCounter("", "hero_sample"); });
 }
 
 function buildLandingPage(d){
@@ -2040,7 +2024,7 @@ function buildLandingPage(d){
   /* Each section is reported once per visit, when half of it is in view. A
      section more than two screens tall can never be half in view, so it
      counts once it fills the screen. Nothing counts while the tool is showing. */
-  const SECTIONS = [["l-hero", "hero"], ["l-price", "price_line"], ["l-how", "how"], ["l-quotes", "quotes"],
+  const SECTIONS = [["l-hero", "hero"], ["l-price", "price_line"], ["l-how", "how"], ["l-try", "try_it"], ["l-quotes", "quotes"],
                     ["l-full", "full_version"], ["l-questions", "questions"], ["l-closing", "closing"]];
   const seenSections = new Set();
   let queued = false;
