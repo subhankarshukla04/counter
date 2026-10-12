@@ -1170,7 +1170,7 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
     <div class="wrap herogrid">
       <div class="herotext">
         <h1>Never guess a <em>price</em> again.</h1>
-        <p class="sub">Counter shows what every cafe near you charges for <span id="rot-art">a</span> <button type="button" class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></button>.</p>
+        <p class="sub">Counter puts your menu next to the cafes around you: what they charge for <span id="rot-art">a</span> <span class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></span>, what they just launched and who is running a deal.</p>
         <div class="combo">
           <label class="vh" for="shop-input">Your shop or area</label>
           <input type="text" id="shop-input" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="shop-list" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Your shop or area">
@@ -1178,7 +1178,7 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
           <ul class="combolist" id="shop-list" role="listbox" aria-label="Shops and areas" hidden></ul>
         </div>
         <p class="free">Free. No sign-up.</p>
-        <button type="button" class="demobtn" id="demo-open"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"></path></svg>See Counter in action</button>
+        <a class="demobtn" id="demo-open" href="#l-how"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"></path></svg>See Counter in action</a>
         <p class="herostats" id="hero-stats"></p>
       </div>
       <div class="heroside">
@@ -1245,13 +1245,13 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
         <div class="step">
           <p class="stepnum">2</p>
           <h3>See where you stand.</h3>
-          <p>How many cafes charge less, the same or more than you.</p>
+          <p>How many cafes charge less, the same or more than you. Try a new price and see what it would mean for your month.</p>
           <div class="stepvis" id="step2-vis" aria-hidden="true" inert></div>
         </div>
         <div class="step">
           <p class="stepnum">3</p>
           <h3>Watch the neighbours.</h3>
-          <p>New items and discounts at cafes near you, every week.</p>
+          <p>What the cafes you pick launch and the deals they run, in Counter and in The Weekly Bake every Monday.</p>
           <div class="stepvis" id="step3-vis" aria-hidden="true" inert></div>
         </div>
         <button type="button" class="btn btn-main" id="find-bottom">Try Counter</button>
@@ -1308,7 +1308,7 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
           <li class="ticket">
             <p class="tk-top"><span>No. 03</span><span>Coffee shop team</span></p>
             <p class="tk-ask">&ldquo;Could the items be a dropdown instead of a long row?&rdquo;</p>
-            <p class="tk-done"><b>&#10003; Served</b>One dropdown. All 9 items, coffee to bakes.</p>
+            <p class="tk-done"><b>&#10003; Served</b>Items now sit in tabs: drinks, pastries, or all of them.</p>
           </li>
         </ol>
       </div>
@@ -1326,11 +1326,11 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
       <div class="plans">
         <div class="plan">
           <h3>Free</h3>
-          <p class="price">$0<small>forever</small></p>
+          <p class="price">S$0<small>free to start</small></p>
           <ul class="fulllist">
-            <li>Look up your shop</li>
-            <li>Compare your flat white and croissant</li>
-            <li>The price map</li>
+            <li>Your prices next to the cafes you pick</li>
+            <li>Their new items and offers</li>
+            <li>Try a new price before you change it</li>
             <li>The Weekly Bake, our Monday email</li>
           </ul>
           <button type="button" class="btn" id="find-plan">Try Counter</button>
@@ -1338,12 +1338,12 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
         <div class="plan pro">
           <span class="badge">Waitlist open</span>
           <h3>Full</h3>
-          <p class="price">$20<small>/ month</small></p>
+          <p class="price">S$20<small>/ month</small></p>
           <ul class="fulllist">
-            <li id="full-all"></li>
-            <li>Every cafe near you</li>
-            <li>Full lists of new items and discounts</li>
-            <li>Your own dashboard</li>
+            <li>Everything in Free</li>
+            <li>More items to compare, not only coffee and pastries</li>
+            <li>A message the morning a competitor changes a price</li>
+            <li>Your prices and theirs over time</li>
           </ul>
           <form class="signup" id="land-wait-form" novalidate>
             <label class="vh" for="land-wait-email">Email address</label>
@@ -1373,19 +1373,19 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
         </details>
         <details class="qpair">
           <summary><h3>&ldquo;Why is it free? What is the catch?&rdquo;</h3></summary>
-          <div><p>There is no catch. You can look up your shop, see how your flat white and croissant prices compare with other cafes, use the map, and get our email every week. All of that is free.</p></div>
+          <div><p>There is no catch. Counter is free while we start out: find your shop, pick your competitors and use every page, from your prices to their new items and offers. The Weekly Bake is free too.</p></div>
         </details>
         <details class="qpair">
-          <summary><h3>&ldquo;So what is the $20 a month for?&rdquo;</h3></summary>
-          <div><p id="answer-paid"></p></div>
+          <summary><h3>&ldquo;So what is the S$20 a month for?&rdquo;</h3></summary>
+          <div><p>For what we build next: more items to compare, a message the morning a competitor changes a price, and your prices and theirs over time. You pay nothing today. Join the waitlist and we email you when it starts.</p></div>
         </details>
         <details class="qpair">
           <summary><h3>&ldquo;What if you have my price wrong?&rdquo;</h3></summary>
-          <div><p>Tell us and we change it. Reply to our email, or send us a photo of your menu.</p><a class="sendmenu" href="https://counter-cafe-v2.vercel.app/?setup=place&src=landing">Send your menu</a></div>
+          <div><p>Tell us and we fix it. Reply to The Weekly Bake, or send us a photo of your menu.</p><a class="sendmenu" href="https://counter-cafe-v2.vercel.app/?setup=place&src=landing">Send your menu</a></div>
         </details>
         <details class="qpair">
           <summary><h3>&ldquo;My shop is not on your list.&rdquo;</h3></summary>
-          <div><p>Take a photo of your menu and send it to us. We add your shop within a week.</p><a class="sendmenu" href="https://counter-cafe-v2.vercel.app/?setup=place&src=landing">Send your menu</a></div>
+          <div><p>Add it yourself in about a minute: type your shop&rsquo;s name and postal code, then upload a photo or PDF of your menu.</p><a class="sendmenu" href="https://counter-cafe-v2.vercel.app/?setup=place&src=landing">Add your shop</a></div>
         </details>
         <details class="qpair">
           <summary><h3>&ldquo;I can't just change my prices. Why would I use this?&rdquo;</h3></summary>
@@ -1445,12 +1445,6 @@ html.vopen,html.vopen body,html.vopen #landing{overflow:hidden}
   </footer>
 </div>
 
-<div class="vmodal" id="demo-modal" role="dialog" aria-modal="true" aria-label="Counter in action" hidden>
-  <div class="vbox">
-    <button type="button" class="vclose" id="demo-close" aria-label="Close video">Close</button>
-    <video id="demo-video" src="media/counter-walkthrough.mp4" poster="media/counter-walkthrough-poster.jpg" controls muted playsinline preload="none"></video>
-  </div>
-</div>
 
 <script>
 "use strict";
@@ -1739,17 +1733,6 @@ function landingMotion(d){
   const rot = byId("rot-word");
   let w = 0, rotHeld = false;
   // the price line's clock turns this word too, so both always name one item.
-  // Pointing at the word holds that clock so it can be clicked.
-  const hold = on => { rot.dataset.held = on ? "1" : ""; };
-  rot.addEventListener("pointerenter", () => hold(true));
-  rot.addEventListener("pointerleave", () => hold(false));
-  rot.addEventListener("focus", () => hold(true));
-  rot.addEventListener("blur", () => hold(false));
-  rot.addEventListener("click", () => {
-    const k = rot.dataset.item;
-    track("landing_cta_clicked", {place: "hero_item", item: k});
-    openCounter("", "hero_item");
-  });
 
 
   const vid = byId("walk-video");
@@ -1819,25 +1802,15 @@ function buildTryDemo(){
   };
 
   byId("try-start").addEventListener("click", () => start("hero", true));
-  // the walkthrough in a lightbox: the secondary action beside "Try Counter"
-  const demoModal = byId("demo-modal"), demoVideo = byId("demo-video");
-  const closeDemo = () => {
-    demoVideo.pause();
-    demoModal.hidden = true;
-    document.documentElement.classList.remove("vopen");
-    byId("demo-open").focus();
-  };
-  byId("demo-open").addEventListener("click", () => {
-    demoModal.hidden = false;
-    document.documentElement.classList.add("vopen");
-    demoVideo.currentTime = 0;
-    demoVideo.play().catch(() => {});
-    byId("demo-close").focus();
+  // "See Counter in action" scrolls to the phone and plays the walkthrough from the start
+  byId("demo-open").addEventListener("click", e => {
+    e.preventDefault();
+    const v = byId("walk-video");
+    v.closest(".phonewrap").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center"});
+    v.currentTime = 0;
+    v.play().catch(() => { v.controls = true; });
     track("demo_video_opened", {place: "hero"});
   });
-  byId("demo-close").addEventListener("click", closeDemo);
-  demoModal.addEventListener("click", e => { if(e.target === demoModal) closeDemo(); });
-  document.addEventListener("keydown", e => { if(e.key === "Escape" && !demoModal.hidden) closeDemo(); });
 
   close.addEventListener("click", () => setFull(false));
   document.addEventListener("keydown", e => { if(e.key === "Escape" && screen.classList.contains("full")) setFull(false); });
@@ -1853,7 +1826,7 @@ function buildLandingPage(d){
     `<i class="cf cfmore">+${fmt(Math.max(cafes - 5, 0))}</i></span>`;
   byId("hero-stats").innerHTML = faces +
     `<b>${esc(PRICES)} prices</b> from <b>${fmt(cafes)} cafes and bakeries</b> in ${fmt(d.meta.districts.length)} areas.` +
-    `<span class="method">Read from each cafe's own menu, online or in the shop. Checked every week.</span>`;
+    `<span class="method">Read from each cafe's own menu, online or in the shop. Checked ${esc(checkedWhen(allRecordedDates(d)))}.</span>`;
   byId("hero-look").addEventListener("click", () => {
     const f = byId("shop-input");
     f.focus();
@@ -1863,7 +1836,7 @@ function buildLandingPage(d){
   byId("rc-count").textContent = `${PRICES} prices checked`;
   landingMotion(d);
   byId("proof-row").innerHTML =
-    `<span><b>${fmt(cafes)}</b>cafes and bakeries tracked</span><span><b>${esc(PRICES)}</b>menu prices</span><span><b>${fmt(d.meta.districts.length)}</b>areas</span><span><b>Weekly</b>updates</span>`;
+    `<span><b>${fmt(cafes)}</b>cafes and bakeries tracked</span><span><b>${esc(PRICES)}</b>menu prices</span><span><b>${fmt(d.meta.districts.length)}</b>areas</span><span><b>Free</b>to start</span>`;
 
   /* 2. The price line: the compared item with the widest gap between its
      cheapest and its dearest price, from the same two prices the boxes under
@@ -2028,7 +2001,7 @@ function buildLandingPage(d){
   }
 
   // 4. how it works
-  byId("step1-line").textContent = `We already have prices from ${fmt(cafes)} cafes and bakeries.`;
+  byId("step1-line").textContent = `Type its name. ${fmt(cafes)} cafes and bakeries are already in, and you can add yours with a photo of your menu.`;
   // three letters that bring up the most shops, as the field would show them
   const all = [...SHOPS.values()].sort((a, b) => a.shop_name.localeCompare(b.shop_name));
   // one row per brand, so three outlets of one name never fill the list
@@ -2053,20 +2026,10 @@ function buildLandingPage(d){
     byId(id).addEventListener("click", () => { track("landing_cta_clicked", {place: place}); openCounter("", place); }));
 
   // 7. the full version: the dashboard tiles as they are with nobody chosen
-  const andList = words => words.length < 2 ? words.join("") : `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`;
-  const openNames = OPEN_ITEMS.filter(k => FINDER_ITEMS.indexOf(k) !== -1).map(itemWords);
-  const lockedNames = FINDER_ITEMS.filter(k => !isOpen(k)).map(itemWords);
-  byId("full-all").textContent = `All items, not only ${andList(openNames)}`;
   const today = new Date().toLocaleDateString("en-CA");
   const livePromos = d.promos_list.filter(r => !r.end_date || r.end_date >= today).length;
   byId("land-tiles").innerHTML = dashTiles(d, livePromos);
 
-  // 8. what the money is for, from the page's own lists of open and locked items
-  byId("answer-paid").textContent =
-    `Free shows you ${andList(openNames)}. ` +
-    `Paid shows you every item we track, such as ${andList(lockedNames.slice(0, 5))}. ` +
-    `You also see every cafe, not only the ${fmt(NEAR)} nearest, every new item and discount, and a page made for your own shop. ` +
-    `You pay nothing today. We email you when it starts.`;
   // "Send your menu" opens Counter's add-a-shop screen
   document.querySelectorAll(".sendmenu").forEach(a => a.addEventListener("click", e => {
     e.preventDefault();
