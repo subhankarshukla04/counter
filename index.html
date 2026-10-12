@@ -883,7 +883,7 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .wdot{color:var(--crust-lite)}
 /* v2 polish after the first screenshot audit */
 .lsec{padding-top:clamp(80px,9vw,128px); padding-bottom:clamp(80px,9vw,128px)}
-.hero .wrap{max-width:var(--maxw)}
+.hero .wrap{max-width:1320px}
 .quotes .bigquote{margin-top:clamp(72px,8vw,112px)}
 .how .steps .btn-main{justify-self:start; width:auto !important; min-width:0}
 .tk-top{display:block}
@@ -1106,7 +1106,7 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .hero .heroside{display:block; padding:0; margin:0; min-width:0}
 .hero .heroside .laptop{width:100%; margin:0}
 .hero .laptop .base{margin:0 -2.5%}
-@media (min-width:861px){ .hero .herogrid{grid-template-columns:minmax(0,9fr) minmax(0,10fr); gap:clamp(64px,8vw,120px); align-items:center} }
+@media (min-width:861px){ .hero .herogrid{grid-template-columns:minmax(0,8fr) minmax(0,12fr); gap:clamp(40px,5vw,80px); align-items:center} }
 @media (max-width:860px){ .hero .heroside{margin-bottom:0} .hero .herogrid{gap:48px} }
 @media (max-width:640px){ .laptop{margin-top:32px} .laptop .lid{border-radius:14px 14px 4px 4px} .laptop .base{height:10px; margin:0 -3%} }
 /* the wordmark is the logo picture; its name stays in the page for screen readers */
@@ -1312,6 +1312,8 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
         </ol>
       </div>
     </div>
+    <blockquote class="wrap bigquote"><p>&ldquo;Before, we had to visit the cafes around us to check their prices. Now it&rsquo;s all in one place.&rdquo;</p><cite>Cafe owner, Singapore</cite></blockquote>
+    <p class="wrap chatnote">From our counter notes, Sep&ndash;Oct 2026. Shops are unnamed to respect their privacy.</p>
     <div class="wrap askblock" id="l-questions">
       <h3 class="asktitle">Asked at the counter.</h3>
       <p class="qlead">We showed this to owners before we built it. These were their questions.</p>
@@ -1342,8 +1344,6 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
       </details>
     </div>
     </div>
-    <blockquote class="wrap bigquote"><p>&ldquo;We sell on quality, not price. But we still check what everyone around us charges.&rdquo;</p><cite>Bakery owner, 16 years in Tiong Bahru</cite></blockquote>
-    <p class="wrap chatnote">From our counter notes, Sep&ndash;Oct 2026. Shops are unnamed to respect their privacy.</p>
   </section>
 
   <!-- 6. the full version -->
@@ -1729,11 +1729,16 @@ function landingMotion(d){
   // the price line's clock turns this word too, so both always name one item.
 
 
-  const hv = byId("hero-video");
-  if(still){ hv.removeAttribute("autoplay"); hv.pause(); hv.controls = true; }
-  const vid = byId("walk-video");
-  if(still || !("IntersectionObserver" in window)){ vid.controls = true; return; }
-  new IntersectionObserver(f => { if(f[0].isIntersecting) vid.play().catch(() => { vid.controls = true; }); else vid.pause(); }, {threshold: 0.3}).observe(vid);
+  // both videos are silent demos and play on their own. If the browser blocks that (Low Power Mode),
+  // they start on the visitor's first tap, click or key instead of showing a Play button.
+  const hv = byId("hero-video"), vid = byId("walk-video");
+  const play = v => { v.muted = true; return v.play().catch(() => {}); };
+  const onFirst = () => { play(hv); if(vid.dataset.seen) play(vid); };
+  ["pointerdown", "touchend", "keydown"].forEach(e => addEventListener(e, onFirst, {once: true, passive: true}));
+  play(hv);
+  if("IntersectionObserver" in window) new IntersectionObserver(f => { if(f[0].isIntersecting){ vid.dataset.seen = 1; play(vid); } else vid.pause(); }, {threshold: 0.3}).observe(vid);
+  else { vid.autoplay = true; play(vid); }
+  if(still || !("IntersectionObserver" in window)) return;
   document.documentElement.classList.add("motion");
   const count = el => {
     const end = Number(el.textContent.replace(/,/g, ""));
