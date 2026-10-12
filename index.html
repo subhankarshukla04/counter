@@ -1749,6 +1749,28 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 /* the hero owns the first screen: nothing below peeks in */
 .hero{min-height:calc(100vh - var(--bar-h, 64px)) !important; min-height:calc(100svh - var(--bar-h, 64px)) !important; display:flex !important; flex-direction:column; justify-content:center !important; box-sizing:border-box; padding-top:clamp(24px,4vh,64px) !important; padding-bottom:clamp(32px,5vh,72px) !important}
 .hero > .wrap{width:100%}
+
+/* try it: the live product in a laptop. The app renders at 1280x800 and is scaled to the screen */
+.trydemo{background:var(--cream); text-align:center}
+.trydemo .sublead{margin-left:auto; margin-right:auto}
+.laptop{width:min(900px,100%); margin:40px auto 0}
+.laptop .lid{padding:2.1% 2.1% 2.6%; background:#1C1714; border-radius:22px 22px 6px 6px; box-shadow:0 0 0 1px #3A302A inset, 0 30px 60px -28px rgba(36,21,14,.45)}
+.appscreen{position:relative; aspect-ratio:16/10; overflow:hidden; border-radius:6px; background:#F5F4F1}
+.appscreen iframe{position:absolute; top:0; left:0; width:1280px; height:800px; border:0; transform-origin:0 0; background:#F5F4F1}
+.laptop .base{position:relative; height:18px; margin:0 -7%; background:linear-gradient(#D9D3CB,#B9B1A7); border-radius:2px 2px 16px 16px}
+.laptop .base::before{content:""; position:absolute; left:50%; top:0; width:16%; height:7px; transform:translateX(-50%); background:#A69D92; border-radius:0 0 10px 10px}
+.tryshield{position:absolute; inset:0; width:100%; height:100%; background:rgba(36,21,14,.1); cursor:pointer; transition:background .2s ease}
+.tryshield:hover{background:rgba(36,21,14,.2)}
+.tryshield .btn{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); display:inline-flex; align-items:center; pointer-events:none; min-height:52px; padding:0 30px; font-size:17px; box-shadow:0 10px 30px -8px rgba(36,21,14,.5)}
+.appscreen.live .tryshield{display:none}
+.trynote{margin-top:22px; font-size:14.5px; color:var(--muted)}
+.trynote a{color:inherit}
+.tryclose{position:absolute; bottom:max(16px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); z-index:2; min-height:44px; padding:0 20px; border-radius:999px; background:var(--espresso); color:var(--cream); font-size:15px; font-weight:500; box-shadow:0 8px 24px -8px rgba(36,21,14,.5)}
+/* full screen: the same element, so the app keeps its place */
+.appscreen.full{position:fixed; inset:0; z-index:200; aspect-ratio:auto; border-radius:0}
+.appscreen.full iframe{width:100% !important; height:100% !important; transform:none !important}
+html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
+@media (max-width:640px){ .laptop{margin-top:32px} .laptop .lid{border-radius:14px 14px 4px 4px} .laptop .base{height:10px; margin:0 -3%} }
 </style>
 </head>
 <body>
@@ -1758,7 +1780,7 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
   <header class="landbar" id="landbar">
     <div class="wrap">
       <span class="wordmark">Counter</span>
-      <nav class="navlinks" aria-label="Sections"><a href="#l-full">Pricing</a></nav>
+      <nav class="navlinks" aria-label="Sections"><a href="#l-try">Try it</a><a href="#l-full">Pricing</a></nav>
       <button type="button" class="btn btn-small" id="find-top">Find my shop</button>
     </div>
   </header>
@@ -1792,6 +1814,26 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
     </div>
   </section>
 
+
+  <!-- 1b. the real product, live, inside a laptop -->
+  <section class="lsec trydemo" id="l-try">
+    <div class="wrap">
+      <span class="section-kicker">Try it</span>
+      <h2>Click around the real thing.</h2>
+      <p class="sublead">This is Counter, the tool behind the board. Pick any cafe that is already listed, choose a few competitors, and see your prices next to theirs.</p>
+      <div class="laptop" id="try-laptop">
+        <div class="lid">
+          <div class="appscreen" id="try-screen">
+            <iframe id="try-frame" title="Counter, the live product" loading="lazy" tabindex="-1"></iframe>
+            <button type="button" class="tryshield" id="try-start"><span class="btn btn-main">Try now</span></button>
+            <button type="button" class="tryclose" id="try-close" hidden>Close demo</button>
+          </div>
+        </div>
+        <div class="base" aria-hidden="true"></div>
+      </div>
+      <p class="trynote"><button type="button" class="linkbtn" id="try-full">Open full screen</button> &middot; <a id="try-tab" target="_blank" rel="noopener">Open in a new tab</a></p>
+    </div>
+  </section>
 
   <!-- 2. the price line -->
   <section class="lsec priceline" id="l-price">
@@ -2752,6 +2794,7 @@ function render(d){
   wireForms();
   buildLanding(d);
   buildLandingPage(d);
+  buildTryDemo();
   refresh();
   watchScrollDepth();
 
@@ -2948,6 +2991,44 @@ function landingMotion(d){
   document.querySelectorAll(".landing .lsec:not(.hero) h2, .landing .sublead, .shot, .step, .quotes figure, .proofrow, .plan, .qpair, .landing .closing .combo")
     .forEach((el, i) => { el.classList.add("rv"); el.style.transitionDelay = (i % 4) * 90 + "ms"; io.observe(el); });
 }
+/* ---------- try it: the live product ----------
+   One URL to change when the domain arrives. The iframe loads lazily as the section nears,
+   and the shield keeps a scroll from turning into a click inside the app. */
+const COUNTER_APP = "https://counter-psi-khaki.vercel.app";
+
+function buildTryDemo(){
+  const screen = byId("try-screen"), frame = byId("try-frame"), close = byId("try-close");
+  frame.src = COUNTER_APP;
+  byId("try-tab").href = COUNTER_APP;
+
+  const fit = () => {
+    if(screen.classList.contains("full")) return;
+    frame.style.transform = "scale(" + screen.clientWidth / 1280 + ")";
+  };
+  new ResizeObserver(fit).observe(screen);
+
+  const setFull = on => {
+    screen.classList.toggle("full", on);
+    document.documentElement.classList.toggle("tryopen", on);
+    close.hidden = !on;
+    fit();
+  };
+  const start = (place, full) => {
+    screen.classList.add("live");
+    frame.removeAttribute("tabindex");
+    if(full) setFull(true);
+    frame.focus();
+    track("demo_opened", {place: place, full: !!full});
+  };
+
+  // a phone cannot read a scaled laptop, so it goes straight to full screen
+  byId("try-start").addEventListener("click", () => start("laptop", innerWidth < 720));
+  byId("try-full").addEventListener("click", () => start("link", true));
+  byId("try-tab").addEventListener("click", () => track("demo_opened", {place: "new_tab"}));
+  close.addEventListener("click", () => setFull(false));
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && screen.classList.contains("full")) setFull(false); });
+}
+
 function buildLandingPage(d){
   const ex = landingExample(d), rows = ex.rows;
   const cafes = (d.shop_items || []).filter(s => s.price_count > 0).length;
