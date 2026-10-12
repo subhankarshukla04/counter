@@ -1770,6 +1770,14 @@ h1,h2,h3,.lsec h2{font-family:var(--f-display); font-weight:500; letter-spacing:
 .appscreen.full{position:fixed; inset:0; z-index:200; aspect-ratio:auto; border-radius:0}
 .appscreen.full iframe{width:100% !important; height:100% !important; transform:none !important}
 html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
+/* hero: the laptop is the stage */
+html.tryopen .landbar{visibility:hidden}
+.hero .heroside{display:block; padding:0; margin:0; min-width:0}
+.hero .heroside .laptop{width:100%; margin:0}
+.hero .tryshield .btn{white-space:nowrap}
+.hero .laptop .base{margin:0 -2.5%}
+@media (min-width:861px){ .hero .herogrid{grid-template-columns:minmax(0,9fr) minmax(0,11fr); gap:40px; align-items:center} }
+@media (max-width:860px){ .hero .heroside{margin-bottom:0} .hero .herogrid{gap:32px} .hero .herostats{display:none} }
 @media (max-width:640px){ .laptop{margin-top:32px} .laptop .lid{border-radius:14px 14px 4px 4px} .laptop .base{height:10px; margin:0 -3%} }
 </style>
 </head>
@@ -1780,17 +1788,17 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
   <header class="landbar" id="landbar">
     <div class="wrap">
       <span class="wordmark">Counter</span>
-      <nav class="navlinks" aria-label="Sections"><a href="#l-try">Try it</a><a href="#l-full">Pricing</a></nav>
-      <button type="button" class="btn btn-small" id="find-top">Find my shop</button>
+      <nav class="navlinks" aria-label="Sections"><a href="#l-full">Pricing</a></nav>
+      <button type="button" class="btn btn-small" id="find-top">Try Counter</button>
     </div>
   </header>
 
-  <!-- 1. hero, with the menu board -->
+  <!-- 1. hero: the live product in a laptop -->
   <section class="lsec hero" id="l-hero">
     <div class="wrap herogrid">
       <div class="herotext">
         <h1>Never guess a <em>price</em> again.</h1>
-        <p class="sub">See what every cafe near you charges for <span id="rot-art">a</span> <button type="button" class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></button>.</p>
+        <p class="sub">Counter shows what every cafe near you charges for <span id="rot-art">a</span> <button type="button" class="rot" id="rot-word" data-item="flat_white"><span>flat white</span></button>.</p>
         <div class="combo">
           <label class="vh" for="shop-input">Your shop or area</label>
           <input type="text" id="shop-input" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="shop-list" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="Your shop or area">
@@ -1801,37 +1809,17 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
         <p class="herostats" id="hero-stats"></p>
       </div>
       <div class="heroside">
-        <div class="boardframe">
-          <p class="boardlbl"><span>Price board</span><span>This week, near you</span></p>
-          <div class="menuboard" id="menu-board">
-            <div class="boardtabs" id="board-tabs" role="group" aria-label="Item"></div>
-            <div id="board-rows"></div>
+        <div class="laptop" id="try-laptop">
+          <div class="lid">
+            <div class="appscreen" id="try-screen">
+              <iframe id="try-frame" title="Counter, the live product" loading="lazy" tabindex="-1"></iframe>
+              <button type="button" class="tryshield" id="try-start"><span class="btn btn-main">Try Counter</span></button>
+              <button type="button" class="tryclose" id="try-close" hidden>Close demo</button>
+            </div>
           </div>
-          <div class="pushes" id="board-news" aria-label="New on menus near you" hidden></div>
-          <p class="boardcap">Real menus. Tap any cafe to see where it stands.</p>
+          <div class="base" aria-hidden="true"></div>
         </div>
       </div>
-    </div>
-  </section>
-
-
-  <!-- 1b. the real product, live, inside a laptop -->
-  <section class="lsec trydemo" id="l-try">
-    <div class="wrap">
-      <span class="section-kicker">Try it</span>
-      <h2>Click around the real thing.</h2>
-      <p class="sublead">This is Counter, the tool behind the board. Pick any cafe that is already listed, choose a few competitors, and see your prices next to theirs.</p>
-      <div class="laptop" id="try-laptop">
-        <div class="lid">
-          <div class="appscreen" id="try-screen">
-            <iframe id="try-frame" title="Counter, the live product" loading="lazy" tabindex="-1"></iframe>
-            <button type="button" class="tryshield" id="try-start"><span class="btn btn-main">Try now</span></button>
-            <button type="button" class="tryclose" id="try-close" hidden>Close demo</button>
-          </div>
-        </div>
-        <div class="base" aria-hidden="true"></div>
-      </div>
-      <p class="trynote"><button type="button" class="linkbtn" id="try-full">Open full screen</button> &middot; <a id="try-tab" target="_blank" rel="noopener">Open in a new tab</a></p>
     </div>
   </section>
 
@@ -1893,7 +1881,7 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
           <p>New items and discounts at cafes near you, every week.</p>
           <div class="stepvis" id="step3-vis" aria-hidden="true" inert></div>
         </div>
-        <button type="button" class="btn btn-main" id="find-bottom">Find my shop</button>
+        <button type="button" class="btn btn-main" id="find-bottom">Try Counter</button>
       </div>
       <div class="phonewrap">
         <div class="phone"><div class="screen">
@@ -1971,7 +1959,7 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
             <li>The price map</li>
             <li>The Weekly Bake, our Monday email</li>
           </ul>
-          <a class="btn" href="#l-hero">Find my shop</a>
+          <button type="button" class="btn" id="find-plan">Try Counter</button>
         </div>
         <div class="plan pro">
           <span class="badge">Waitlist open</span>
@@ -2043,10 +2031,10 @@ html.tryopen,html.tryopen body,html.tryopen #landing{overflow:hidden}
       </div>
     <div class="wrap closegrid">
       <div class="closecopy">
-        <span class="section-kicker" style="color:var(--butter)">The Weekly Bake &middot; every Monday</span>
-        <h2 class="bigclose">Your Monday,<br><span>on the house.</span></h2>
-        <p class="closesub">The prices, new items and deals near you, in one short email before you open.</p>
-        <button type="button" class="closefind" id="close-find">Or look up your shop now &rarr;</button>
+        <span class="section-kicker" style="color:var(--butter)">Not ready to try Counter?</span>
+        <h2 class="bigclose">Start with<br><span>The Weekly Bake.</span></h2>
+        <p class="closesub">Counter&rsquo;s free Monday email: prices, new items and deals near you.</p>
+        <button type="button" class="closefind" id="close-find">Or try Counter now &rarr;</button>
       </div>
       <div class="receipt">
         <p class="rc-head">The Weekly Bake</p>
@@ -2894,9 +2882,8 @@ function tellUs(){
   addEventListener("resize", fit);
   const cf = byId("close-find");
   if(cf) cf.addEventListener("click", () => {
-    track("landing_cta_clicked", {place: "closing_find"});
-    byId("landing").scrollTo({top: 0, behavior: reduceMotion() ? "auto" : "smooth"});
-    setTimeout(() => byId("shop-input").focus({preventScroll: true}), reduceMotion() ? 0 : 500);
+    track("landing_cta_clicked", {place: "closing"});
+    openCounter("", "closing");
   });
   const open = byId("tell-open"), form = byId("tell-form");
   if(!open || !form) return;
@@ -2931,45 +2918,9 @@ function landingMotion(d){
   rot.addEventListener("click", () => {
     const k = rot.dataset.item;
     track("landing_cta_clicked", {place: "hero_item", item: k});
-    setItem(k);
-    history.pushState({fromLanding: true, tab: activeTab}, "", "#" + activeTab);
-    showPreview(true);
+    openCounter("", "hero_item");
   });
 
-
-  /* New launches arrive as push notifications at the board's foot: a real
-     launch from the data slides in and the last one drops behind it. A tap
-     opens the list of new items in the tool. */
-  const L = (d.launches_list || []).filter(l => l.price && l.shop && l.item_name).slice(0, 24);
-  const news = byId("board-news");
-  if(L.length){
-    const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const when = m => { const [y, mo] = (m || "").split("-").map(Number); return mo ? `${MONTHS[mo - 1]} ${y}` : "New"; };
-    let n = 0;
-    const show = () => {
-      const l = L[n++ % L.length];
-      const el = document.createElement("a");
-      el.className = "notif enter"; el.href = "#whats-launching";
-      el.innerHTML = `<span class="ni" aria-hidden="true">${esc(l.shop.trim()[0] || "")}</span>` +
-        `<span class="nb"><span class="nh"><span>New on the menu</span><time>${esc(when(l.launch_month))}</time></span>` +
-        `<span class="nt"><b>${esc(l.item_name)}</b></span><span class="ns">${esc(l.shop)} &middot; <span>${money(l.price)}</span></span></span>`;
-      [...news.children].forEach(c => { if(c.classList.contains("back")) c.classList.add("gone"); else c.classList.add("back"); });
-      news.appendChild(el);
-      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("enter")));
-      setTimeout(() => news.querySelectorAll(".gone").forEach(c => c.remove()), 600);
-    };
-    show(); news.hidden = false;
-    if(!still) setInterval(() => { if(!document.hidden && onLanding() && !news.matches(":hover")) show(); }, 5000);
-    news.addEventListener("click", e => {
-      if(!e.target.closest(".notif")) return;
-      e.preventDefault();
-      track("landing_cta_clicked", {place: "board_news"});
-      activateTab("whats-launching", {push: false, track: false});
-      history.pushState({fromLanding: true, tab: "whats-launching"}, "", "#whats-launching");
-      showPreview(true);
-      activateTab("whats-launching", {push: false, track: false, scroll: true});
-    });
-  }
 
   const vid = byId("walk-video");
   if(still || !("IntersectionObserver" in window)){ vid.controls = true; return; }
@@ -2991,15 +2942,18 @@ function landingMotion(d){
   document.querySelectorAll(".landing .lsec:not(.hero) h2, .landing .sublead, .shot, .step, .quotes figure, .proofrow, .plan, .qpair, .landing .closing .combo")
     .forEach((el, i) => { el.classList.add("rv"); el.style.transitionDelay = (i % 4) * 90 + "ms"; io.observe(el); });
 }
-/* ---------- try it: the live product ----------
-   One URL to change when the domain arrives. The iframe loads lazily as the section nears,
-   and the shield keeps a scroll from turning into a click inside the app. */
+/* ---------- the live product ----------
+   One URL to change when the domain arrives. The hero shows the sample cafe's My prices;
+   the shield keeps a scroll from turning into a click inside the app. Everything that
+   opens Counter goes through openCounter, which fills the whole screen. */
 const COUNTER_APP = "https://counter-cafe-v2.vercel.app";
+const COUNTER_PREVIEW = "?shop=caffe_pralet&rivals=merci_marcel_tiong_bahru,tiong_bahru_bakery,drips_bakery_cafe,tianns&src=landing";
+let openCounter = () => {};
 
 function buildTryDemo(){
   const screen = byId("try-screen"), frame = byId("try-frame"), close = byId("try-close");
-  frame.src = COUNTER_APP;
-  byId("try-tab").href = COUNTER_APP;
+  frame.src = COUNTER_APP + COUNTER_PREVIEW;
+  let custom = false;
 
   const fit = () => {
     if(screen.classList.contains("full")) return;
@@ -3012,6 +2966,13 @@ function buildTryDemo(){
     document.documentElement.classList.toggle("tryopen", on);
     close.hidden = !on;
     fit();
+    if(!on && custom){
+      // a lookup's app goes away with the close; the hero shows the sample again
+      custom = false;
+      frame.src = COUNTER_APP + COUNTER_PREVIEW;
+      screen.classList.remove("live");
+      frame.setAttribute("tabindex", "-1");
+    }
   };
   const start = (place, full) => {
     screen.classList.add("live");
@@ -3020,11 +2981,14 @@ function buildTryDemo(){
     frame.focus();
     track("demo_opened", {place: place, full: !!full});
   };
+  // query: "" for the first screen, "shop=<id>" or "at=a:<area>" to land on that
+  openCounter = (query, place) => {
+    custom = true;
+    frame.src = COUNTER_APP + "?" + (query ? query + "&" : "") + "src=landing";
+    start(place, true);
+  };
 
-  // a phone cannot read a scaled laptop, so it goes straight to full screen
-  byId("try-start").addEventListener("click", () => start("laptop", innerWidth < 720));
-  byId("try-full").addEventListener("click", () => start("link", true));
-  byId("try-tab").addEventListener("click", () => track("demo_opened", {place: "new_tab"}));
+  byId("try-start").addEventListener("click", () => start("hero", true));
   close.addEventListener("click", () => setFull(false));
   document.addEventListener("keydown", e => { if(e.key === "Escape" && screen.classList.contains("full")) setFull(false); });
 }
@@ -3033,115 +2997,6 @@ function buildLandingPage(d){
   const ex = landingExample(d), rows = ex.rows;
   const cafes = (d.shop_items || []).filter(s => s.price_count > 0).length;
 
-  /* 1. The menu board, in the hero. One board for each open item: six cafes
-     and their price, the cheapest at the top, the dearest at the bottom and
-     four spread between, so the range shows at once. One name stands for all
-     of a brand's outlets of that name, and the row opens the outlet whose
-     price it shows. */
-  const BOARD_ROWS = 5, EVERY = 2000, FLIP = 175, TAB_HOLD = 6000;
-  // the board shows a name without its outlet bracket. The button's label keeps it.
-  const short = r => r.shop_name.replace(/\s*\([^)]*\)\s*$/, "");
-  const boards = {};
-  BOARD_ITEMS.filter(k => FINDER_ITEMS.indexOf(k) !== -1).forEach(k => {
-    const named = new Set();
-    const priced = d.named_prices[k].slice().sort((a, b) => a.price - b.price || a.shop_name.localeCompare(b.shop_name))
-      .filter(r => SHOPS.has(r.shop_id) && !named.has(short(r)) && named.add(short(r)));
-    const spots = [...new Set(Array.from({length: BOARD_ROWS}, (_, i) => Math.round(i * (priced.length - 1) / (BOARD_ROWS - 1))))]
-      .filter(i => i >= 0 && i < priced.length);
-    boards[k] = {on: spots.map(i => priced[i]), slot: 0,
-                 // everyone else waits their turn, by name, so cheap and dear arrive mixed
-                 waiting: priced.filter((r, i) => spots.indexOf(i) === -1).sort((a, b) => a.shop_name.localeCompare(b.shop_name))};
-  });
-  const boardEl = byId("menu-board"), rowsEl = byId("board-rows"), tabsEl = byId("board-tabs");
-  let shown = Object.keys(boards)[0];
-  const rowLabel = (r, k) => `${r.shop_name}, ${itemWords(k)} ${money(r.price)}`;
-  const rowHtml = r => `<span class="boardname">${esc(short(r))}</span><span class="boardlead"></span>` +
-                       `<span class="boardprice">${money(r.price)}</span>`;
-  // of the six prices showing, mark the cheapest and the dearest
-  const tint = () => {
-    const on = boards[shown].on, low = Math.min(...on.map(r => r.price)), high = Math.max(...on.map(r => r.price));
-    [...rowsEl.children].forEach((el, i) => {
-      const price = el.querySelector(".boardprice");
-      if(!price || !on[i]) return;
-      price.classList.toggle("hi", on[i].price === high);
-      price.classList.toggle("lo", on[i].price === low && low !== high);
-    });
-  };
-  const paintBoard = () => {
-    rowsEl.innerHTML = boards[shown].on.map((r, i) =>
-      `<button type="button" class="boardrow" data-i="${i}" aria-label="${esc(rowLabel(r, shown))}">${rowHtml(r)}</button>`).join("");
-    tabsEl.querySelectorAll(".boardtab").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.item === shown)));
-    tint();
-  };
-  tabsEl.innerHTML = Object.keys(boards).map(k =>
-    `<button type="button" class="boardtab" data-item="${esc(k)}">${esc(itemName(k))}</button>`).join("");
-
-  /* Every two seconds the next row down flips to a cafe that is not on the
-     board. The cafe it replaces joins the back of the queue, so every cafe has
-     its turn before any comes round again. It rests while the pointer is over
-     the board, a row has keyboard focus, a tab was just tapped, the board is
-     off screen, the tab is hidden or the tool is showing. It never starts for
-     a reader who asked for less motion. Nothing here is a live region. */
-  let timer = null, inView = false, hover = false, focused = false, holdUntil = 0;
-  const turn = () => {
-    timer = null;
-    const k = shown, b = boards[k], i = b.slot;
-    b.slot = (b.slot + 1) % b.on.length;
-    if(rowsEl.children[i]) rowsEl.children[i].classList.add("out");
-    setTimeout(() => {
-      const next = b.waiting.shift();
-      b.waiting.push(b.on[i]);
-      b.on[i] = next;
-      // the board may have been switched to the other item during the flip
-      const el = shown === k ? rowsEl.children[i] : null;
-      if(!el) return;
-      el.innerHTML = rowHtml(next);
-      el.setAttribute("aria-label", rowLabel(next, k));
-      el.classList.remove("out");
-      tint();
-    }, FLIP);
-    rest();
-  };
-  const rest = () => {
-    const run = !!shown && inView && !hover && !focused && !document.hidden && onLanding() && !reduceMotion() &&
-                boards[shown].waiting.length > 0;
-    if(run && timer === null) timer = setTimeout(turn, Math.max(EVERY, holdUntil - Date.now()));
-    else if(!run && timer !== null){ clearTimeout(timer); timer = null; }
-  };
-  if(shown){
-    paintBoard();
-    tabsEl.addEventListener("click", e => {
-      const b = e.target.closest(".boardtab");
-      if(!b) return;
-      track("landing_cta_clicked", {place: "board_tab"});
-      shown = b.dataset.item;
-      holdUntil = Date.now() + TAB_HOLD;
-      if(timer !== null){ clearTimeout(timer); timer = null; }
-      paintBoard();
-      rest();
-    });
-    // a row does what choosing that cafe in the field does, on the item it shows
-    rowsEl.addEventListener("click", e => {
-      const el = e.target.closest(".boardrow");
-      const r = el && boards[shown].on[Number(el.dataset.i)], shop = r && SHOPS.get(r.shop_id);
-      if(!shop) return;
-      chooseShop(d, shop, "board", isOpen(shown) ? shown : undefined);
-      history.pushState({fromLanding: true, tab: activeTab}, "", "#" + activeTab);
-      track("preview_opened", {mode: "shop", via: "pick"});
-      showPreview(true);
-    });
-    boardEl.addEventListener("pointerenter", e => { if(e.pointerType === "mouse"){ hover = true; rest(); } });
-    boardEl.addEventListener("pointerleave", () => { hover = false; rest(); });
-    rowsEl.addEventListener("focusin", e => { focused = e.target.matches(":focus-visible"); rest(); });
-    rowsEl.addEventListener("focusout", () => { focused = false; rest(); });
-    if("IntersectionObserver" in window){
-      new IntersectionObserver(found => {
-        inView = found[found.length - 1].isIntersecting;
-        rest();
-      }, {threshold: 0.2}).observe(boardEl);
-      document.addEventListener("visibilitychange", rest);
-    }
-  }
   // small cafe scenes: the kind of shops behind the numbers
   const faces = `<span class="cafestack">` +
     [1, 2, 3, 4, 5].map(n => `<i class="cf" style="background-image:url(img/cafes/cafe-${n}.jpg)"></i>`).join("") +
@@ -3153,7 +3008,7 @@ function buildLandingPage(d){
     const f = byId("shop-input");
     f.focus();
     f.dispatchEvent(new Event("input"));
-    track("landing_cta_clicked", {place: "hero_look"});
+    track("landing_cta_clicked", {place: "hero_lookup"});
   });
   byId("rc-count").textContent = `${PRICES} prices checked`;
   landingMotion(d);
@@ -3343,13 +3198,9 @@ function buildLandingPage(d){
     .sort((a, b) => launchWhen(b).localeCompare(launchWhen(a))).slice(0, 2);
   byId("step3-vis").innerHTML = newest.map(r => `<div class="itemrow">${newItemRow(r)}</div>`).join("");
 
-  // both "Find my shop" buttons go to the field at the top and put the cursor in it
-  const find = () => {
-    byId("landing").scrollTop = 0;
-    byId("shop-input").focus({preventScroll: true});
-  };
-  byId("find-top").addEventListener("click", () => { track("landing_cta_clicked", {place: "topbar"}); find(); });
-  byId("find-bottom").addEventListener("click", () => { track("landing_cta_clicked", {place: "how"}); find(); });
+  // the "Try Counter" buttons open the app at its first screen
+  [["find-top", "topbar"], ["find-bottom", "how"], ["find-plan", "pricing"]].forEach(([id, place]) =>
+    byId(id).addEventListener("click", () => { track("landing_cta_clicked", {place: place}); openCounter("", place); }));
 
   // 7. the full version: the dashboard tiles as they are with nobody chosen
   const andList = words => words.length < 2 ? words.join("") : `${words.slice(0, -1).join(", ")} and ${words[words.length - 1]}`;
@@ -3460,8 +3311,6 @@ const itemWords = k => itemName(k).toLowerCase();
    part of the paid product: they show a count and a lock row. */
 let FINDER_ITEMS = Object.keys(ITEM_NAMES);   // narrowed to the items the data has
 const OPEN_ITEMS = ["flat_white", "croissant_plain"];
-// the hero board shows more than the open items; tapping a cafe still opens on an open one
-const BOARD_ITEMS = ["flat_white", "latte", "matcha_latte", "cappuccino", "croissant_plain", "kouign_amann"];
 const isOpen = k => OPEN_ITEMS.indexOf(k) !== -1;
 let finderItem = OPEN_ITEMS[0];
 /* who is asking: {shopId} once they pick their shop from the data, or
@@ -3760,13 +3609,11 @@ function makeShopField(d, input, list, from){
     const missing = asking;
     asking = false;
     close();
-    if(o.shop) chooseShop(d, o.shop, from);
-    else chooseArea(d, o.area, missing, from);
     input.blur();
-    // one step in the history, so Back returns here
-    history.pushState({fromLanding: true, tab: activeTab}, "", "#" + activeTab);
-    track("preview_opened", {mode: o.shop ? "shop" : "area", via: "pick"});
-    showPreview(true);
+    track("shop_search", {found: !!o.shop});
+    if(o.shop) track("shop_picked", {shop_id: o.shop.shop_id, from: from});
+    else track("area_picked", {area: o.area, from: from});
+    openCounter(o.shop ? "shop=" + encodeURIComponent(o.shop.shop_id) : "at=" + encodeURIComponent("a:" + o.area), from === "hero" ? "hero_lookup" : from);
   }
   // While the field is in use on a phone it sits just under the top bar, so
   // the keyboard leaves the suggestions in view. It goes back to where the
