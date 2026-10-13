@@ -1482,6 +1482,8 @@ const SESSION_ID = Math.random().toString(36).slice(2) + "-" + Date.now().toStri
 /* Analytics. Fire and forget: a failure here must never surface to the reader
    or interrupt anything on the page. */
 function track(eventName, props){
+  // the staging copy is for the team: its visits must not count as real ones
+  if(/^demoweeklybake\./.test(location.hostname)) return Promise.resolve();
   try{
     const payload = JSON.stringify({
       name: String(eventName),
@@ -2341,6 +2343,7 @@ function bindSignup(formId, inputId, noteId, source, evt, position, spot){
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
+    if(btn.disabled) return;   // one sign-up at a time, however fast the taps come
     note.hidden = true;
     const email = input.value.trim();
 
