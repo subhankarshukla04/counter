@@ -1757,10 +1757,18 @@ function landingMotion(d){
   // they start on the visitor's first tap, click or key instead of showing a Play button.
   const hv = byId("hero-video"), vid = byId("walk-video");
   const play = v => { v.muted = true; return v.play().catch(() => {}); };
-  const onFirst = () => { play(hv); if(vid.dataset.seen) play(vid); };
+  let heroOn = true;
+  const onFirst = () => { if(heroOn) play(hv); if(vid.dataset.seen) play(vid); };
   ["pointerdown", "touchend", "keydown"].forEach(e => addEventListener(e, onFirst, {once: true, passive: true}));
   play(hv);
-  if("IntersectionObserver" in window) new IntersectionObserver(f => { if(f[0].isIntersecting){ vid.dataset.seen = 1; play(vid); } else vid.pause(); }, {threshold: 0.3}).observe(vid);
+  if("IntersectionObserver" in window){
+    // only the video on screen plays, so a phone never decodes both at once
+    new IntersectionObserver(f => { heroOn = f[0].isIntersecting; if(heroOn) play(hv); else hv.pause(); }).observe(hv);
+    // a screen before the walkthrough comes into view, start loading it, so it plays at once
+    const warm = new IntersectionObserver(f => { if(f[0].isIntersecting){ vid.preload = "auto"; warm.disconnect(); } }, {rootMargin: "0px 0px 100% 0px"});
+    warm.observe(vid);
+    new IntersectionObserver(f => { if(f[0].isIntersecting){ vid.dataset.seen = 1; play(vid); } else vid.pause(); }, {threshold: 0.3}).observe(vid);
+  }
   else { vid.autoplay = true; play(vid); }
   if(still || !("IntersectionObserver" in window)) return;
   document.documentElement.classList.add("motion");
